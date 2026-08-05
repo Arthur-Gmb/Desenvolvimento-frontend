@@ -1,2 +1,2 @@
 # frontend-2026-2
-Entregas da disciplina Desenvolvimento Front-End — CEULP/ULBRA, 2026.2
+Repositório dedicado às atividades e projetos práticos desenvolvidos ao longo da disciplina de Desenvolvimento Front-End.
