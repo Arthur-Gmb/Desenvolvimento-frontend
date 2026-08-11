@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Tarefas Acadêmicas - Quadro de Projetos</title>
+</head>
+<body>
+    <header>
+        <h1>Gerenciador de Tarefas Acadêmicas</h1>
+    </header>
+    <main>
+        <section aria-labelledby="titulo-busca-filtros">
+            <h2 id="titulo-busca-filtros">Busca e Filtros</h2>
+
+            <form action="#" method="get">
+                <div>
+                    <label for="busca-titulo">Buscar por título da tarefa</label>
+                    <input type="search" id="busca-titulo" name="busca-titulo">
+                </div>
+
+                <fieldset>
+                    <legend>Filtrar por status</legend>
+
+                    <div>
+                        <input type="radio" id="status-todos" name="filtro-status" value="todos" checked>
+                        <label for="status-todos">Todos</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="status-a-fazer" name="filtro-status" value="a-fazer">
+                        <label for="status-a-fazer">A fazer</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="status-em-andamento" name="filtro-status" value="em-andamento">
+                        <label for="status-em-andamento">Em andamento</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="status-em-revisao" name="filtro-status" value="em-revisao">
+                        <label for="em-revisao">Em revisão</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="status-concluida" name="filtro-status" value="concluida">
+                        <label for="concluida">Concluída</label>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Filtrar por prioridade</legend>
+
+                    <div>
+                        <input type="radio" id="prioridade-todas" name="filtro-prioridade" value="todas" checked>
+                        <label for="prioridade-todas">Todas</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="prioridade-baixa" name="filtro-prioridade" value="baixa">
+                        <label for="prioridade-baixa">Baixa</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="prioridade-media" name="filtro-prioridade" value="media">
+                        <label for="prioridade-media">Média</label>
+                    </div>
+                    <div>
+                        <input type="radio" id="prioridade-alta" name="filtro-prioridade" value="alta">
+                        <label for="prioridade-alta">Alta</label>
+                    </div>
+                </fieldset>
+
+                <button type="submit">Aplicar filtro</button>
+            </form>
+        </section>
+
+        <section aria-labelledby="titulo-quadro">
+            <h2 id="titulo-quadro">Quadro de Tarefas</h2>
+
+            <section aria-labelledby="titulo-a-fazer">
+                <h3 id="titulo-a-fazer">A fazer</h3>
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Configurar repósitorio</h4>
+                            <p>Projeto: Sistema de Monitoramento de Sensores</p>
+                            <p>Responsável: Arthur Barreiras</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Alta</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Levantar requisitos do sistema</h4>
+                            <p>Projeto: Sistema de Monitoramento de Sensores</p>
+                            <p>Responsável: Carlos Barreiras</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Média</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+            <section aria-labelledby="titulo-em-andamento">
+                <h3 id="titulo-em-andamento">Em andamento</h3>
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Modelar entidades do banco de dados</h4>
+                            <p>Projeto: Plataforma de Biblioteca Digital</p>
+                            <p>Responsável: Maria Sousa</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Alta</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Implementar autenticação de usuários</h4>
+                            <p>Projeto: Plataforma de Biblioteca Digital</p>
+                            <p>Responsável: José Sousa</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Média</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="titulo-em-revisao">
+                <h3 id="titulo-em-revisao">Em revisão</h3>
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Escrever testes unitários do módulo de login</h4>
+                            <p>Projeto: Plataforma de Biblioteca Digital</p>
+                            <p>Responsável: Luiza Sousa</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Baixa</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Revisar documentação da API</h4>
+                            <p>Projeto: Sistema de Monitoramento de Sensores</p>
+                            <p>Responsável: João Sousa</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Baixa</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+
+            <section aria-labelledby="titulo-concluida">
+                <h3 id="titulo-concluida">Concluída</h3>
+                <ul>
+                    <li>
+                        <article>
+                            <h4>Criar Protótipo de interface</h4>
+                            <p>Projeto: Aplicativo de Gestão Financeira Pessoal</p>
+                            <p>Responsável: Anibal Barreiras</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Alta</p>
+                        </article>
+                    </li>
+                    <li>
+                        <article>
+                            <h4>Configurar ambiente de desenvolvimento</h4>
+                            <p>Projeto: Plataforma de Biblioteca Digital</p>
+                            <p>Responsável: Jaidete Barreiras</p>
+                            <p>Prazo: 20/08/2026</p>
+                            <p>Prioridade: Média</p>
+                        </article>
+                    </li>
+                </ul>
+            </section>
+        </section>
+    </main>
+
+    <footer>
+        <p>Arthur Gabriel Monteiro Barreiras - Disciplina: Desenvolvimento Front-End</p>
+    </footer>
+</body>
+</html>
