@@ -1,0 +1,60 @@
+{
+  "tarefas": [
+    {
+      "id": "t1",
+      "titulo": "Configurar repósitorio",
+      "status": "a-fazer",
+      "prioridade": "alta",
+      "prazo": "2026-09-05"
+    },
+    {
+      "id": "t2",
+      "titulo": "Levantar requisitos do sistema",
+      "status": "a-fazer",
+      "prioridade": "media",
+      "prazo": "2026-09-08"
+    },
+    {
+      "id": "t3",
+      "titulo": "Modelar entidades do banco de dados",
+      "status": "em-andamento",
+      "prioridade": "alta",
+      "prazo": "2026-09-06"
+    },
+    {
+      "id": "t4",
+      "titulo": "Implementar autenticação de usuários",
+      "status": "em-andamento",
+      "prioridade": "media",
+      "prazo": "2026-09-09"
+    },
+    {
+      "id": "t5",
+      "titulo": "Escrever testes unitários do módulo de login",
+      "status": "em-revisao",
+      "prioridade": "baixa",
+      "prazo": "2026-09-07"
+    },
+    {
+      "id": "t6",
+      "titulo": "Revisar documentação da API",
+      "status": "em-revisao",
+      "prioridade": "baixa",
+      "prazo": "2026-09-10"
+    },
+    {
+      "id": "t7",
+      "titulo": "Criar Protótipo de interface",
+      "status": "concluida",
+      "prioridade": "alta",
+      "prazo": "2026-08-30"
+    },
+    {
+      "id": "t8",
+      "titulo": "Configurar ambiente de desenvolvimento",
+      "status": "concluida",
+      "prioridade": "media",
+      "prazo": "2026-08-28"
+    }
+  ]
+}
