@@ -70,7 +70,7 @@ header h1 {
 header .subtitulo {
   margin-top: 0.5rem;
   font-size: 0.9rem;
-  color: var(--tinta-suave);
+  color: rgba(244, 236, 216, 0.75);
   font-style: italic;
 }
 
@@ -520,7 +520,7 @@ footer {
   border-top: 3px double var(--tinta);
   text-align: center;
   font-size: 0.8rem;
-  color: var(--tinta-suave);
+  color: rgba(244, 236, 216, 0.75);
 }
 
 @media (max-width: 1024px) {
@@ -563,7 +563,7 @@ footer {
   max-width: 1400px;
   margin: 0 auto 1.5rem auto;
   font-size: 0.85rem;
-  color: var(--tinta-suave);
+  color: rgba(244, 236, 216, 0.8);
   font-style: italic;
 }
 
