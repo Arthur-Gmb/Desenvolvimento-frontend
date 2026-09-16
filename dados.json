@@ -1,0 +1,68 @@
+{
+  "tarefas": [
+    {
+      "id": "t1",
+      "titulo": "Configurar repósitorio",
+      "status": "a-fazer",
+      "prioridade": "alta",
+      "prazo": "2026-09-05",
+      "descricao": "Criar o repositório no GitHub, configurar o .gitignore e estruturar as pastas iniciais do projeto."
+    },
+    {
+      "id": "t2",
+      "titulo": "Levantar requisitos do sistema",
+      "status": "a-fazer",
+      "prioridade": "media",
+      "prazo": "2026-09-08",
+      "descricao": "Reunir com os stakeholders para definir as funcionalidades essenciais e os critérios de aceite do sistema."
+    },
+    {
+      "id": "t3",
+      "titulo": "Modelar entidades do banco de dados",
+      "status": "em-andamento",
+      "prioridade": "alta",
+      "prazo": "2026-09-06",
+      "descricao": "Desenhar o diagrama entidade-relacionamento e definir atributos e relacionamentos das tabelas principais."
+    },
+    {
+      "id": "t4",
+      "titulo": "Implementar autenticação de usuários",
+      "status": "em-andamento",
+      "prioridade": "media",
+      "prazo": "2026-09-09",
+      "descricao": "Desenvolver o fluxo de login, cadastro e recuperação de senha, com hashing seguro das credenciais."
+    },
+    {
+      "id": "t5",
+      "titulo": "Escrever testes unitários do módulo de login",
+      "status": "em-revisao",
+      "prioridade": "baixa",
+      "prazo": "2026-09-07",
+      "descricao": "Cobrir os principais cenários de autenticação com testes automatizados, incluindo casos de erro."
+    },
+    {
+      "id": "t6",
+      "titulo": "Revisar documentação da API",
+      "status": "em-revisao",
+      "prioridade": "baixa",
+      "prazo": "2026-09-10",
+      "descricao": "Conferir se os endpoints documentados refletem o comportamento real da API e corrigir divergências."
+    },
+    {
+      "id": "t7",
+      "titulo": "Criar Protótipo de interface",
+      "status": "concluida",
+      "prioridade": "alta",
+      "prazo": "2026-08-30",
+      "descricao": "Montar o wireframe navegável das telas principais para validação com a equipe antes da implementação."
+    },
+    {
+      "id": "t8",
+      "titulo": "Configurar ambiente de desenvolvimento",
+      "status": "concluida",
+      "prioridade": "media",
+      "prazo": "2026-08-28",
+      "descricao": "Instalar dependências, configurar variáveis de ambiente e validar que o projeto roda localmente."
+    }
+  ]
+}

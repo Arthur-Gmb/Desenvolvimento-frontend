@@ -1,0 +1,670 @@
+/* ==========================================================================
+   Gerenciador de Tarefas Acadêmicas — Releitura "Mural de Investigação"
+   Estética de quadro de detetive: cortiça, fichas presas com percevidos,
+   fios vermelhos, abas de pasta e carimbos. 100% CSS puro — sem libs.
+   ========================================================================== */
+:root {
+  --corcho-base: #8a5a34;
+  --papel: #f4ecd8;
+  --papel-alt: #ede0bf;
+  --tinta: #2b2118;
+  --tinta-suave: #6b5d4a;
+  --vermelho: #a11d1d;
+  --vermelho-forte: #7c1414;
+
+  --status-todo: #39506b;
+  --status-in-progress: #b5651d;
+  --status-review: #6b4a6b;
+  --status-done: #3f6b3f;
+
+  --prioridade-alta: #b3261e;
+  --prioridade-media: #ad6412;
+  --prioridade-baixa: #39506b;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+@keyframes surgir {
+  from { opacity: 0; transform: translateY(6px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+body {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: var(--corcho-base);
+  background-image:
+    radial-gradient(circle at 15% 25%, rgba(0, 0, 0, 0.12) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 55% 65%, rgba(0, 0, 0, 0.1) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 80% 15%, rgba(0, 0, 0, 0.08) 1.5px, transparent 1.5px),
+    radial-gradient(circle at 30% 85%, rgba(0, 0, 0, 0.09) 1.5px, transparent 1.5px);
+  background-size: 26px 26px, 34px 34px, 20px 20px, 30px 30px;
+  color: var(--tinta);
+  line-height: 1.55;
+  padding: 2.5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 100vh;
+}
+
+/* ==========================================================================
+   Cabeçalho
+   ========================================================================== */
+header {
+  margin-bottom: 2.25rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 3px double var(--tinta);
+}
+
+header h1 {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--tinta);
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+header .subtitulo {
+  margin-top: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+  font-style: italic;
+}
+
+/* ==========================================================================
+   Painel de Métricas — Visão Geral
+   ========================================================================== */
+.painel-metricas {
+  background: var(--papel);
+  padding: 1.75rem;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  margin-bottom: 2rem;
+}
+
+.painel-metricas h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--tinta);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.25);
+  padding-bottom: 0.5rem;
+}
+
+.metricas-conteudo {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  flex-wrap: wrap;
+}
+
+.anel-progresso {
+  --pct: 0;
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  border-radius: 50%;
+  background: conic-gradient(var(--status-done) calc(var(--pct) * 1%), rgba(0, 0, 0, 0.12) 0);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.5s ease;
+}
+
+.anel-centro {
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: var(--papel);
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.15rem;
+}
+
+.anel-percentual {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--tinta);
+}
+
+.anel-legenda {
+  font-size: 0.65rem;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.metricas-detalhes {
+  flex: 1;
+  min-width: 220px;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.metricas-total {
+  font-size: 0.9rem;
+  color: var(--tinta-suave);
+}
+
+.metricas-total strong {
+  color: var(--tinta);
+  font-size: 1.1rem;
+}
+
+.barra-status {
+  display: flex;
+  width: 100%;
+  height: 10px;
+  border-radius: 2px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.12);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+}
+
+.segmento-status {
+  height: 100%;
+  transition: flex 0.4s ease;
+}
+
+.legenda-status {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+}
+
+.legenda-status li {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.legenda-status strong {
+  color: var(--tinta);
+}
+
+.ponto {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.ponto[data-cor="a-fazer"]      { background-color: var(--status-todo); }
+.ponto[data-cor="em-andamento"] { background-color: var(--status-in-progress); }
+.ponto[data-cor="em-revisao"]   { background-color: var(--status-review); }
+.ponto[data-cor="concluida"]    { background-color: var(--status-done); }
+
+/* ==========================================================================
+   Seção de Busca e Filtros
+   ========================================================================== */
+main section[aria-labelledby="titulo-busca-filtros"] {
+  background: var(--papel);
+  padding: 1.75rem;
+  border-radius: 3px;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+  margin-bottom: 2.5rem;
+}
+
+main section[aria-labelledby="titulo-busca-filtros"] h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  margin-bottom: 1.25rem;
+  color: var(--tinta);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-bottom: 1px dashed rgba(0, 0, 0, 0.25);
+  padding-bottom: 0.5rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+form > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+label {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+input[type="search"] {
+  width: 100%;
+  padding: 0.7rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  font-size: 0.9rem;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  background-color: var(--papel-alt);
+  color: var(--tinta);
+}
+
+input[type="search"]::placeholder {
+  color: #9c8f77;
+}
+
+input[type="search"]:focus {
+  border-color: var(--vermelho);
+  box-shadow: 0 0 0 2px rgba(161, 29, 29, 0.2);
+}
+
+/* Fieldsets e Radio Buttons */
+.filtros-linha {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: flex-start;
+}
+
+fieldset {
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 2px;
+  padding: 1rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+legend {
+  padding: 0 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--tinta-suave);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+fieldset > div {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+input[type="radio"] {
+  accent-color: var(--vermelho);
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+}
+
+fieldset label {
+  font-weight: 400;
+  text-transform: none;
+  cursor: pointer;
+  color: var(--tinta);
+}
+
+/* Seleção de ordenação */
+select#ordenar-prazo {
+  padding: 0.6rem 0.8rem;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  background-color: var(--papel-alt);
+  color: var(--tinta);
+  cursor: pointer;
+  max-width: 320px;
+}
+
+select#ordenar-prazo:focus {
+  border-color: var(--vermelho);
+  box-shadow: 0 0 0 2px rgba(161, 29, 29, 0.2);
+}
+
+/* Botão de Ação */
+button[type="submit"],
+button#limpar-filtros {
+  background-color: var(--vermelho);
+  color: var(--papel);
+  border: none;
+  padding: 0.65rem 1.6rem;
+  border-radius: 2px;
+  font-size: 0.85rem;
+  font-family: inherit;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  cursor: pointer;
+  transition: background-color 0.15s, transform 0.1s;
+  align-self: flex-start;
+}
+
+button[type="submit"]:hover,
+button#limpar-filtros:hover {
+  background-color: var(--vermelho-forte);
+}
+
+button[type="submit"]:active,
+button#limpar-filtros:active {
+  transform: scale(0.98);
+}
+
+/* ==========================================================================
+   Quadro de Tarefas (Grid Kanban)
+   ========================================================================== */
+main section[aria-labelledby="titulo-quadro"] {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  align-items: start;
+}
+
+main section[aria-labelledby="titulo-quadro"] > h2 {
+  grid-column: 1 / -1;
+  font-size: 1.2rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: var(--papel);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+/* Colunas individuais — cada uma é uma seção do mural, com aba de pasta */
+main section[aria-labelledby="titulo-quadro"] > section {
+  position: relative;
+  margin-top: 14px;
+  background-color: rgba(185, 138, 85, 0.35);
+  background-image: repeating-linear-gradient(135deg, transparent, transparent 40px, rgba(161, 29, 29, 0.18) 40px, rgba(161, 29, 29, 0.18) 41px);
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  border-radius: 4px;
+  padding: 1rem;
+  min-height: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  transition: box-shadow 0.15s, border-color 0.15s;
+}
+
+/* Zona de soltura ativa durante o drag-and-drop */
+main section[aria-labelledby="titulo-quadro"] > section:has(ul.zona-soltura-ativa) {
+  border-color: var(--vermelho);
+  box-shadow: 0 0 0 3px rgba(161, 29, 29, 0.25);
+}
+
+/* Cabeçalhos das colunas — abas de pasta suspensa presas no mural */
+main section[aria-labelledby="titulo-quadro"] h3 {
+  position: absolute;
+  top: -14px;
+  left: 12px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  padding: 0.45rem 0.9rem;
+  border-radius: 4px 4px 0 0;
+  color: var(--papel);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  box-shadow: 0 -2px 6px rgba(0, 0, 0, 0.25);
+}
+
+section[aria-labelledby="titulo-a-fazer"] h3      { background-color: var(--status-todo); }
+section[aria-labelledby="titulo-em-andamento"] h3 { background-color: var(--status-in-progress); }
+section[aria-labelledby="titulo-em-revisao"] h3   { background-color: var(--status-review); }
+section[aria-labelledby="titulo-concluida"] h3    { background-color: var(--status-done); }
+
+/* Listas e Cartões de Tarefa */
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+  min-height: 60px;
+  border-radius: 4px;
+  transition: background-color 0.15s, outline-color 0.15s;
+}
+
+ul.zona-soltura-ativa {
+  background-color: rgba(161, 29, 29, 0.08);
+  outline: 2px dashed rgba(161, 29, 29, 0.45);
+  outline-offset: 4px;
+}
+
+/* Cada tarefa é uma ficha presa no mural com um percevejo */
+article {
+  position: relative;
+  background: var(--papel);
+  background-image: repeating-linear-gradient(transparent, transparent 22px, rgba(0, 0, 0, 0.05) 23px);
+  padding: 1.3rem 1rem 1rem;
+  border-radius: 2px;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, opacity 0.15s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  cursor: grab;
+  animation: surgir 0.3s ease-out;
+  user-select: none;
+}
+
+article::before {
+  content: "";
+  position: absolute;
+  top: -9px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #e05a5a, var(--vermelho-forte) 70%);
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+}
+
+article:nth-child(3n)   { transform: rotate(-1.4deg); }
+article:nth-child(3n+1) { transform: rotate(1deg); }
+article:nth-child(3n+2) { transform: rotate(-0.6deg); }
+
+article:hover {
+  transform: rotate(0deg) translateY(-4px);
+  box-shadow: 4px 10px 20px rgba(0, 0, 0, 0.45);
+}
+
+article.arrastando {
+  opacity: 0.5;
+  cursor: grabbing;
+  transform: scale(1.03) rotate(0deg);
+}
+
+article h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--tinta);
+  line-height: 1.35;
+  margin-bottom: 0.2rem;
+}
+
+article p {
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+}
+
+article p:last-child {
+  font-weight: 700;
+  margin-top: 0.2rem;
+}
+
+/* ==========================================================================
+   Rodapé e Responsividade
+   ========================================================================== */
+footer {
+  margin-top: 3rem;
+  padding-top: 1.5rem;
+  border-top: 3px double var(--tinta);
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+}
+
+@media (max-width: 1024px) {
+  main section[aria-labelledby="titulo-quadro"] {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  body { padding: 1.5rem 1rem; }
+  main section[aria-labelledby="titulo-quadro"] {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Selo de prioridade — efeito de carimbo de tinta */
+.prioridade {
+  display: inline-block;
+  padding: 0.2rem 0.6rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  border-radius: 2px;
+  margin-top: 0.5rem;
+  width: fit-content;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border: 2px solid currentColor;
+  transform: rotate(-4deg);
+  mix-blend-mode: multiply;
+}
+
+.prioridade.baixa { color: var(--prioridade-baixa); }
+.prioridade.media { color: var(--prioridade-media); }
+.prioridade.alta  { color: var(--prioridade-alta); }
+
+/* ==========================================================================
+   Região de status, coluna vazia e botão de detalhes
+   ========================================================================== */
+[data-estado] {
+  max-width: 1400px;
+  margin: 0 auto 1.5rem auto;
+  font-size: 0.85rem;
+  color: var(--tinta-suave);
+  font-style: italic;
+}
+
+.coluna-vazia {
+  list-style: none;
+  padding: 1rem;
+  text-align: center;
+  font-size: 0.8rem;
+  color: rgba(43, 33, 24, 0.55);
+  border: 1px dashed rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
+  background: rgba(255, 255, 255, 0.15);
+}
+
+article button[data-acao="ver-detalhes"] {
+  align-self: flex-start;
+  margin-top: 0.4rem;
+  padding: 0.35rem 0.8rem;
+  font-size: 0.75rem;
+  font-family: inherit;
+  font-weight: 700;
+  border: 1px solid var(--vermelho);
+  border-radius: 2px;
+  background-color: transparent;
+  color: var(--vermelho);
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  cursor: pointer;
+  transition: background-color 0.15s, color 0.15s;
+}
+
+article button[data-acao="ver-detalhes"]:hover {
+  background-color: var(--vermelho);
+  color: var(--papel);
+}
+
+/* ==========================================================================
+   Modal de detalhes — documento de caso com selo confidencial
+   ========================================================================== */
+dialog[data-modal-detalhes] {
+  position: relative;
+  overflow: hidden;
+  background: var(--papel);
+  color: var(--tinta);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 3px;
+  padding: 1.75rem;
+  max-width: 440px;
+  width: 90%;
+  font-family: inherit;
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+}
+
+dialog[data-modal-detalhes]::before {
+  content: "CONFIDENCIAL";
+  position: absolute;
+  top: 20px;
+  right: -34px;
+  background: var(--vermelho);
+  color: var(--papel);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  padding: 3px 40px;
+  transform: rotate(35deg);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+dialog[data-modal-detalhes]::backdrop {
+  background: rgba(20, 14, 8, 0.7);
+}
+
+dialog[data-modal-detalhes] form {
+  gap: 0.65rem;
+}
+
+dialog[data-modal-detalhes] h3 {
+  color: var(--tinta);
+  font-size: 1.05rem;
+  font-weight: 700;
+  margin-bottom: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding-right: 2rem;
+}
+
+dialog[data-modal-detalhes] p {
+  font-size: 0.8rem;
+  color: var(--tinta-suave);
+}
+
+dialog[data-modal-detalhes] p[data-modal-descricao] {
+  color: var(--tinta);
+  line-height: 1.5;
+  padding: 0.8rem;
+  background: var(--papel-alt);
+  border-left: 3px solid var(--vermelho);
+  border-radius: 2px;
+  margin-top: 0.4rem;
+}
+
+dialog[data-modal-detalhes] button[type="submit"] {
+  margin-top: 0.5rem;
+}
